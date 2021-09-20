@@ -1,25 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { HydraAdmin, fetchHydra, hydraDataProvider } from "@api-platform/admin";
+import { parseHydraDocumentation } from "@api-platform/api-doc-parser";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const entrypoint = "https://localhost";
+
+const dataProvider = hydraDataProvider(
+  entrypoint,
+  fetchHydra,
+  parseHydraDocumentation,
+  false // useEmbedded parameter
+);
+
+const App = () => (
+  <HydraAdmin
+    dataProvider={ dataProvider }
+    entrypoint={ entrypoint }
+  />
+);
 
 export default App;
